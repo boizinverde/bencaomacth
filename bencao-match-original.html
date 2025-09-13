@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BençãoMatch - Aplicativo de Relacionamento Cristão</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Original BençãoApp Colors */
+            --primary-blue: #6BBBDD;
+            --primary-pink: #F498B6;
+            --primary-lilac: #B8A0D9;
+            --primary-gold: #E6C78C;
+            
+            --text-dark: #2D3436;
+            --text-medium: #636E72;
+            --text-light: #B2BEC3;
+            
+            --bg-white: #FFFFFF;
+            --bg-light: #F5F8FA;
+            --bg-lilac: #F4F1F9;
+            
+            --status-success: #27AE60;
+            --status-warning: #F2C94C;
+            --status-error: #EB5757;
+            
+            --ui-border: #DFE6E9;
+            --ui-disabled: #EAEAEA;
+            
+            /* Original BençãoApp Spacing */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-xxl: 48px;
+            
+            /* Original BençãoApp Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 24px;
+            --radius-circle: 9999px;
+        }
+        
+        body {
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-light);
+            min-height: 100vh;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 375px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background-color: var(--bg-light);
+            position: relative;
+        }
+        
+        /* Auth Screen Styles */
+        .auth-screen {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-lilac) 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-lg);
+            color: white;
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xxl);
+        }
+        
+        .auth-logo {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-circle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            margin: 0 auto var(--spacing-lg);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .auth-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 36px;
+            margin-bottom: var(--spacing-sm);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .auth-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .auth-buttons {
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        .auth-button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text-dark);
+            border: none;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md) var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+        }
+        
+        .auth-button:active {
+            transform: translateY(0);
+        }
+        
+        .auth-button.apple {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+        }
+        
+        .auth-button-icon {
+            font-size: 20px;
+            margin-right: var(--spacing-sm);
+        }
+        
+        .auth-features {
+            margin-top: var(--spacing-xl);
+            width: 100%;
+            max-width: 320px;
+        }
+        
+        .auth-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(10px);
+        }
+        
+        .auth-feature-icon {
+            font-size: 24px;
+            margin-right: var(--spacing-md);
+        }
+        
+        .auth-verse {
+            margin-top: var(--spacing-xl);
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(10px);
+            max-width: 320px;
+        }
+        
+        .auth-verse-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .auth-verse-ref {
+            font-size: 14px;
+            opacity: 0.8;
+            font-weight: 600;
+        }
+        
+        /* Header Styles */
+        .header {
+            padding: var(--spacing-md);
+            text-align: center;
+            background-color: var(--bg-light);
+        }
+        
+        .header-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--primary-blue);
+        }
+        
+        /* Card Styles */
+        .card-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md);
+            position: relative;
+            height: calc(100vh - 200px);
+        }
+        
+        .profile-card {
+            width: 100%;
+            height: 85%;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            cursor: grab;
+            transition: transform 0.2s ease;
+            background: white;
+        }
+        
+        .profile-card:active {
+            cursor: grabbing;
+        }
+        
+        .profile-card.dragging {
+            transform: rotate(var(--rotation, 0deg));
+            z-index: 10;
+        }
+        
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .profile-gradient {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: var(--spacing-md);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        
+        .profile-name-age {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: white;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .profile-denomination {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .profile-denomination-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--primary-lilac);
+            margin-left: var(--spacing-xs);
+        }
+        
+        .profile-info-row {
+            display: flex;
+            margin-bottom: var(--spacing-md);
+            gap: var(--spacing-md);
+        }
+        
+        .profile-info-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-info-text {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-left: var(--spacing-xs);
+        }
+        
+        .profile-verse {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 16px;
+            color: white;
+            line-height: 1.4;
+            margin-top: var(--spacing-xs);
+        }
+        
+        /* Action Buttons */
+        .actions-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-lg) var(--spacing-md);
+            gap: var(--spacing-md);
+        }
+        
+        .action-button {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-circle);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .action-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .action-button:active {
+            transform: scale(0.95);
+        }
+        
+        .pass-button {
+            background-color: var(--status-error);
+        }
+        
+        .like-button {
+            background-color: var(--primary-pink);
+        }
+        
+        /* Navigation */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            padding: var(--spacing-sm) 0;
+            width: 100%;
+            max-width: 375px;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--spacing-sm);
+            cursor: pointer;
+            color: var(--text-medium);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: var(--radius-md);
+            min-width: 60px;
+        }
+        
+        .nav-item:hover {
+            background: rgba(107, 187, 221, 0.1);
+        }
+        
+        .nav-item.active {
+            color: var(--primary-blue);
+            background: rgba(107, 187, 221, 0.1);
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .nav-text {
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* Screen Management */
+        .screen {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Empty State */
+        .empty-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: var(--spacing-lg);
+            text-align: center;
+        }
+        
+        .empty-icon {
+            font-size: 80px;
+            margin-bottom: var(--spacing-lg);
+            opacity: 0.5;
+        }
+        
+        .empty-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .empty-subtext {
+            font-size: 16px;
+            color: var(--text-medium);
+            line-height: 1.5;
+        }
+        
+        /* Matches Screen */
+        .matches-screen {
+            padding: var(--spacing-md) var(--spacing-md) 100px;
+            background-color: var(--bg-light);
+        }
+        
+        .matches-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .matches-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .matches-stats {
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--primary-blue);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+        
+        .match-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .match-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-circle);
+            margin-right: var(--spacing-md);
+            object-fit: cover;
+        }
+        
+        .match-info {
+            flex: 1;
+        }
+        
+        .match-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .match-message {
+            font-size: 14px;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .match-time {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        /* Community Screen */
+        .community-screen {
+            padding: var(--spacing-md) var(--spacing-md) 100px;
+            background-color: var(--bg-light);
+        }
+        
+        .community-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .post-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-circle);
+            margin-right: var(--spacing-sm);
+            object-fit: cover;
+        }
+        
+        .post-user-info {
+            flex: 1;
+        }
+        
+        .post-user-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+        
+        .post-meta {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .post-content {
+            font-size: 14px;
+            color: var(--text-dark);
+            line-height: 1.5;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .post-verse {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: var(--spacing-lg);
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+        
+        .post-action {
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .post-action:hover {
+            color: var(--primary-blue);
+        }
+        
+        /* Profile Screen */
+        .profile-screen {
+            padding: var(--spacing-md) var(--spacing-md) 100px;
+            background-color: var(--bg-light);
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .profile-user-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-circle);
+            margin: 0 auto var(--spacing-md);
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .profile-user-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .profile-user-email {
+            font-size: 16px;
+            color: var(--text-medium);
+        }
+        
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .profile-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .profile-section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .profile-setting {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--ui-border);
+        }
+        
+        .profile-setting:last-child {
+            border-bottom: none;
+        }
+        
+        .profile-setting-label {
+            font-size: 16px;
+            color: var(--text-dark);
+        }
+        
+        .toggle-switch {
+            width: 50px;
+            height: 30px;
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: var(--ui-disabled);
+        }
+        
+        .toggle-switch.active {
+            background-color: var(--status-success);
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            width: 26px;
+            height: 26px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            left: 2px;
+        }
+        
+        .toggle-switch.active::after {
+            left: 22px;
+        }
+        
+        .profile-verse-card {
+            background: var(--bg-lilac);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .profile-verse-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 16px;
+            color: var(--primary-blue);
+            line-height: 1.5;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .profile-verse-ref {
+            font-size: 14px;
+            color: var(--text-medium);
+            font-weight: 600;
+        }
+        
+        .logout-button {
+            background: transparent;
+            color: var(--status-error);
+            border: 2px solid var(--status-error);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-button:hover {
+            background: var(--status-error);
+            color: white;
+        }
+        
+        /* Like/Pass Indicators */
+        .swipe-indicator {
+            position: absolute;
+            top: 50px;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            opacity: 0;
+            transform: rotate(15deg);
+            transition: opacity 0.2s ease;
+            z-index: 5;
+        }
+        
+        .like-indicator {
+            right: 20px;
+            background: var(--status-success);
+            color: white;
+            transform: rotate(15deg);
+        }
+        
+        .pass-indicator {
+            left: 20px;
+            background: var(--status-error);
+            color: white;
+            transform: rotate(-15deg);
+        }
+        
+        .swipe-indicator.show {
+            opacity: 1;
+        }
+        
+        /* Mobile Optimizations */
+        @media (max-width: 375px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .auth-title {
+                font-size: 32px;
+            }
+            
+            .profile-card {
+                height: 80%;
+            }
+        }
+        
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Auth Screen (Login) -->
+        <div id="auth-screen" class="screen active auth-screen">
+            <div class="auth-header">
+                <div class="auth-logo">⛪</div>
+                <h1 class="auth-title">BençãoMatch</h1>
+                <p class="auth-subtitle">Encontre conexões baseadas na fé</p>
+            </div>
+            
+            <div class="auth-buttons">
+                <button class="auth-button" onclick="startApp()">
+                    <span class="auth-button-icon">🔍</span>
+                    Continuar com Google
+                </button>
+                <button class="auth-button apple" onclick="startApp()">
+                    <span class="auth-button-icon">🍎</span>
+                    Continuar com Apple
+                </button>
+            </div>
+            
+            <div class="auth-features">
+                <div class="auth-feature">
+                    <span class="auth-feature-icon">👥</span>
+                    <span>Comunidade Cristã Ativa</span>
+                </div>
+                <div class="auth-feature">
+                    <span class="auth-feature-icon">💕</span>
+                    <span>Relacionamentos Saudáveis</span>
+                </div>
+                <div class="auth-feature">
+                    <span class="auth-feature-icon">🛡️</span>
+                    <span>Ambiente Seguro</span>
+                </div>
+                <div class="auth-feature">
+                    <span class="auth-feature-icon">🙏</span>
+                    <span>Valores Cristãos</span>
+                </div>
+            </div>
+            
+            <div class="auth-verse">
+                <p class="auth-verse-text">"Melhor é serem dois do que um, porque têm melhor paga do seu trabalho."</p>
+                <p class="auth-verse-ref">Eclesiastes 4:9</p>
+            </div>
+        </div>
+        
+        <!-- Home Screen (Discover) -->
+        <div id="home-screen" class="screen">
+            <div class="header">
+                <h1 class="header-title">Bênção Match</h1>
+            </div>
+            
+            <div class="card-container">
+                <div id="profile-card" class="profile-card" draggable="false">
+                    <img class="profile-image" src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Profile">
+                    
+                    <div class="swipe-indicator like-indicator">CURTIR</div>
+                    <div class="swipe-indicator pass-indicator">PASSAR</div>
+                    
+                    <div class="profile-gradient">
+                        <div class="profile-name-age">Mariana, 28</div>
+                        <div class="profile-denomination">
+                            <span style="color: var(--primary-lilac); font-size: 16px;">⛪</span>
+                            <span class="profile-denomination-text">Batista</span>
+                        </div>
+                        <div class="profile-info-row">
+                            <div class="profile-info-item">
+                                <span style="color: var(--text-light); font-size: 16px;">📍</span>
+                                <span class="profile-info-text">5 km • São Paulo</span>
+                            </div>
+                            <div class="profile-info-item">
+                                <span style="color: var(--text-light); font-size: 16px;">🌍</span>
+                                <span class="profile-info-text">Português, Inglês</span>
+                            </div>
+                        </div>
+                        <p class="profile-verse">"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha." - 1 Coríntios 13:4</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actions-container">
+                <button class="action-button pass-button" onclick="handlePass()">✖️</button>
+                <button class="action-button like-button" onclick="handleLike()">💖</button>
+            </div>
+        </div>
+        
+        <!-- Matches Screen -->
+        <div id="matches-screen" class="screen matches-screen">
+            <div class="matches-header">
+                <h2 class="matches-title">Seus Matches</h2>
+            </div>
+            
+            <div class="matches-stats">
+                <div class="stat-item">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Matches</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Não lidas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Hoje</div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <img class="match-avatar" src="https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Ana">
+                <div class="match-info">
+                    <div class="match-name">Ana Costa</div>
+                    <div class="match-message">Olá! Como você está? Que Deus te abençoe! 😊🙏</div>
+                    <div class="match-time">2 horas atrás</div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <img class="match-avatar" src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Priscila">
+                <div class="match-info">
+                    <div class="match-name">Priscila Santos</div>
+                    <div class="match-message">Que bênção conhecer você! Vamos orar juntos? 🙏</div>
+                    <div class="match-time">1 dia atrás</div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <img class="match-avatar" src="https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Joana">
+                <div class="match-info">
+                    <div class="match-name">Joana Oliveira</div>
+                    <div class="match-message">Paz do Senhor! Adorei seu perfil ✨</div>
+                    <div class="match-time">3 dias atrás</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Community Screen -->
+        <div id="community-screen" class="screen community-screen">
+            <h2 class="community-title">Comunidade Cristã</h2>
+            
+            <div class="post-card">
+                <div class="post-header">
+                    <img class="post-avatar" src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Maria">
+                    <div class="post-user-info">
+                        <div class="post-user-name">Maria Silva</div>
+                        <div class="post-meta">📖 Versículo • 4h</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <div class="post-verse">"Porque para Deus nada é impossível." - Lucas 1:37</div>
+                    <br>
+                    Essa palavra tem me fortalecido todos os dias. Mesmo nas dificuldades, Deus é fiel e sempre nos mostra uma saída! 🙏✨
+                </div>
+                <div class="post-actions">
+                    <span class="post-action">💕 12 curtidas</span>
+                    <span class="post-action">💬 5 comentários</span>
+                    <span class="post-action">🔄 2 compartilhamentos</span>
+                </div>
+            </div>
+            
+            <div class="post-card">
+                <div class="post-header">
+                    <img class="post-avatar" src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Priscila">
+                    <div class="post-user-info">
+                        <div class="post-user-name">Priscila Santos</div>
+                        <div class="post-meta">🙏 Pedido de Oração • 8h</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    Família cristã, peço orações pelos nossos irmãos que estão passando por dificuldades financeiras. Que Deus os abençoe abundantemente e proveja todas as suas necessidades! 💙🙏
+                </div>
+                <div class="post-actions">
+                    <span class="post-action">🙏 18 orações</span>
+                    <span class="post-action">💬 8 comentários</span>
+                    <span class="post-action">🔄 5 compartilhamentos</span>
+                </div>
+            </div>
+            
+            <div class="post-card">
+                <div class="post-header">
+                    <img class="post-avatar" src="https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Pastor João">
+                    <div class="post-user-info">
+                        <div class="post-user-name">Pastor João</div>
+                        <div class="post-meta">⭐ Testemunho • 12h</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    Glória a Deus! Hoje presenciamos um milagre em nossa igreja. Uma irmã foi completamente curada após anos de tratamento. Deus é fiel e poderoso! Aleluia! 🙌✨
+                </div>
+                <div class="post-actions">
+                    <span class="post-action">💕 45 curtidas</span>
+                    <span class="post-action">💬 23 comentários</span>
+                    <span class="post-action">🔄 12 compartilhamentos</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Profile Screen -->
+        <div id="profile-screen" class="screen profile-screen">
+            <div class="profile-header">
+                <img class="profile-user-avatar" src="https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=200" alt="User">
+                <h2 class="profile-user-name">Usuário Demo</h2>
+                <p class="profile-user-email">usuario@exemplo.com</p>
+            </div>
+            
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Matches</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Conversas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Eventos</div>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <h3 class="profile-section-title">Configurações</h3>
+                <div class="profile-setting">
+                    <span class="profile-setting-label">🔔 Notificações</span>
+                    <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                </div>
+                <div class="profile-setting">
+                    <span class="profile-setting-label">👁️ Modo Privado</span>
+                    <div class="toggle-switch" onclick="toggleSetting(this)"></div>
+                </div>
+                <div class="profile-setting">
+                    <span class="profile-setting-label">📍 Mostrar Localização</span>
+                    <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <h3 class="profile-section-title">Conta</h3>
+                <div class="profile-setting">
+                    <span class="profile-setting-label">✏️ Editar Perfil</span>
+                    <span style="color: var(--text-light); font-size: 18px;">›</span>
+                </div>
+                <div class="profile-setting">
+                    <span class="profile-setting-label">📷 Gerenciar Fotos</span>
+                    <span style="color: var(--text-light); font-size: 18px;">›</span>
+                </div>
+                <div class="profile-setting">
+                    <span class="profile-setting-label">⭐ Assinatura Premium</span>
+                    <span style="color: var(--text-light); font-size: 18px;">›</span>
+                </div>
+                <div class="profile-setting">
+                    <span class="profile-setting-label">❓ Central de Ajuda</span>
+                    <span style="color: var(--text-light); font-size: 18px;">›</span>
+                </div>
+            </div>
+            
+            <div class="profile-verse-card">
+                <p class="profile-verse-text">"O amor é paciente, o amor é bondoso."</p>
+                <p class="profile-verse-ref">1 Coríntios 13:4</p>
+            </div>
+            
+            <button class="logout-button" onclick="handleLogout()">
+                🚪 Sair da Conta
+            </button>
+        </div>
+        
+        <!-- Navigation Bar -->
+        <div class="nav-bar" id="nav-bar" style="display: none;">
+            <a href="#" class="nav-item active" onclick="showScreen('home-screen', this)">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-text">Descobrir</div>
+            </a>
+            <a href="#" class="nav-item" onclick="showScreen('matches-screen', this)">
+                <div class="nav-icon">💕</div>
+                <div class="nav-text">Matches</div>
+            </a>
+            <a href="#" class="nav-item" onclick="showScreen('community-screen', this)">
+                <div class="nav-icon">👥</div>
+                <div class="nav-text">Comunidade</div>
+            </a>
+            <a href="#" class="nav-item" onclick="showScreen('profile-screen', this)">
+                <div class="nav-icon">👤</div>
+                <div class="nav-text">Perfil</div>
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // Profile data for swiping
+        const PROFILES = [
+            {
+                id: '1',
+                name: 'Mariana',
+                age: 28,
+                denomination: 'Batista',
+                distance: 5,
+                location: 'São Paulo',
+                languages: ['Português', 'Inglês'],
+                verse: 'O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. - 1 Coríntios 13:4',
+                image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400',
+            },
+            {
+                id: '2',
+                name: 'João',
+                age: 30,
+                denomination: 'Católico',
+                distance: 8,
+                location: 'Rio de Janeiro',
+                languages: ['Português', 'Espanhol'],
+                verse: 'Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna. - João 3:16',
+                image: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=400',
+            },
+            {
+                id: '3',
+                name: 'Ana',
+                age: 26,
+                denomination: 'Pentecostal',
+                distance: 3,
+                location: 'Brasília',
+                languages: ['Português'],
+                verse: 'Posso todas as coisas em Cristo que me fortalece. - Filipenses 4:13',
+                image: 'https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=400',
+            },
+            {
+                id: '4',
+                name: 'Priscila',
+                age: 24,
+                denomination: 'Assembleia de Deus',
+                distance: 7,
+                location: 'Belo Horizonte',
+                languages: ['Português', 'Inglês'],
+                verse: 'O Senhor é o meu pastor, nada me faltará. - Salmos 23:1',
+                image: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=400',
+            }
+        ];
+        
+        let currentIndex = 0;
+        let isDragging = false;
+        let startX = 0;
+        let currentX = 0;
+        let cardElement = null;
+        
+        function startApp() {
+            const authScreen = document.getElementById('auth-screen');
+            const homeScreen = document.getElementById('home-screen');
+            const navBar = document.getElementById('nav-bar');
+            
+            authScreen.style.transform = 'translateX(-100%)';
+            authScreen.style.transition = 'transform 0.5s ease';
+            
+            setTimeout(() => {
+                authScreen.classList.remove('active');
+                homeScreen.classList.add('active');
+                navBar.style.display = 'flex';
+                navBar.style.animation = 'slideUp 0.5s ease';
+            }, 500);
+        }
+        
+        function showScreen(screenId, navItem) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Remove active from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected screen
+            document.getElementById(screenId).classList.add('active');
+            
+            // Add active to clicked nav item
+            if (navItem) {
+                navItem.classList.add('active');
+            }
+        }
+        
+        function updateProfileCard() {
+            if (currentIndex >= PROFILES.length) {
+                document.getElementById('profile-card').innerHTML = `
+                    <div class="empty-container">
+                        <div class="empty-icon">😇</div>
+                        <div class="empty-text">Não há mais perfis disponíveis.</div>
+                        <div class="empty-subtext">Tente novamente mais tarde ou ajuste seus filtros.</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            const profile = PROFILES[currentIndex];
+            const card = document.getElementById('profile-card');
+            
+            card.innerHTML = `
+                <img class="profile-image" src="${profile.image}" alt="Profile">
+                
+                <div class="swipe-indicator like-indicator">CURTIR</div>
+                <div class="swipe-indicator pass-indicator">PASSAR</div>
+                
+                <div class="profile-gradient">
+                    <div class="profile-name-age">${profile.name}, ${profile.age}</div>
+                    <div class="profile-denomination">
+                        <span style="color: var(--primary-lilac); font-size: 16px;">⛪</span>
+                        <span class="profile-denomination-text">${profile.denomination}</span>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-item">
+                            <span style="color: var(--text-light); font-size: 16px;">📍</span>
+                            <span class="profile-info-text">${profile.distance} km • ${profile.location}</span>
+                        </div>
+                        <div class="profile-info-item">
+                            <span style="color: var(--text-light); font-size: 16px;">🌍</span>
+                            <span class="profile-info-text">${profile.languages.join(', ')}</span>
+                        </div>
+                    </div>
+                    <p class="profile-verse">"${profile.verse}"</p>
+                </div>
+            `;
+            
+            // Reset card position and rotation
+            card.style.transform = 'translateX(0) rotate(0deg)';
+            card.style.transition = 'none';
+        }
+        
+        function handleLike() {
+            const card = document.getElementById('profile-card');
+            const likeIndicator = card.querySelector('.like-indicator');
+            
+            // Show like indicator
+            likeIndicator.classList.add('show');
+            
+            // Animate card out
+            card.style.transition = 'transform 0.3s ease';
+            card.style.transform = 'translateX(100%) rotate(15deg)';
+            
+            setTimeout(() => {
+                currentIndex++;
+                updateProfileCard();
+                
+                // Check for match (30% chance for demo)
+                if (Math.random() < 0.3) {
+                    showMatchDialog();
+                }
+            }, 300);
+        }
+        
+        function handlePass() {
+            const card = document.getElementById('profile-card');
+            const passIndicator = card.querySelector('.pass-indicator');
+            
+            // Show pass indicator
+            passIndicator.classList.add('show');
+            
+            // Animate card out
+            card.style.transition = 'transform 0.3s ease';
+            card.style.transform = 'translateX(-100%) rotate(-15deg)';
+            
+            setTimeout(() => {
+                currentIndex++;
+                updateProfileCard();
+            }, 300);
+        }
+        
+        function showMatchDialog() {
+            const modal = document.createElement('div');
+            modal.innerHTML = `
+                <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 10000; animation: fadeIn 0.3s ease;">
+                    <div style="background: linear-gradient(135deg, var(--primary-pink), var(--primary-lilac)); padding: 40px; border-radius: var(--radius-xl); text-align: center; color: white; max-width: 320px; margin: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                        <div style="font-size: 80px; margin-bottom: 20px;">🎉💕</div>
+                        <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 28px; margin-bottom: 10px;">É um Match!</h2>
+                        <p style="margin-bottom: 15px; font-size: 16px;">Vocês se curtiram mutuamente!</p>
+                        <p style="font-family: 'Playfair Display', serif; font-style: italic; margin-bottom: 30px; opacity: 0.9; font-size: 16px;">"Que Deus abençoe esta conexão!"</p>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: white; color: var(--primary-blue); border: none; padding: 15px 30px; border-radius: var(--radius-lg); font-weight: 600; cursor: pointer; font-size: 16px; transition: transform 0.2s ease;">
+                            Continuar ✨
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function toggleSetting(toggle) {
+            toggle.classList.toggle('active');
+        }
+        
+        function handleLogout() {
+            if (confirm('Tem certeza que deseja sair da sua conta?')) {
+                document.getElementById('nav-bar').style.display = 'none';
+                document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+                document.getElementById('auth-screen').classList.add('active');
+                document.getElementById('auth-screen').style.transform = 'translateX(0)';
+                currentIndex = 0;
+                updateProfileCard();
+            }
+        }
+        
+        // Touch/Mouse events for swiping
+        document.addEventListener('DOMContentLoaded', function() {
+            cardElement = document.getElementById('profile-card');
+            
+            // Mouse events
+            cardElement.addEventListener('mousedown', handleStart);
+            document.addEventListener('mousemove', handleMove);
+            document.addEventListener('mouseup', handleEnd);
+            
+            // Touch events
+            cardElement.addEventListener('touchstart', handleStart, {passive: false});
+            document.addEventListener('touchmove', handleMove, {passive: false});
+            document.addEventListener('touchend', handleEnd);
+            
+            function handleStart(e) {
+                if (currentIndex >= PROFILES.length) return;
+                
+                isDragging = true;
+                startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+                cardElement.style.transition = 'none';
+                cardElement.classList.add('dragging');
+            }
+            
+            function handleMove(e) {
+                if (!isDragging) return;
+                
+                e.preventDefault();
+                currentX = (e.type === 'mousemove' ? e.clientX : e.touches[0].clientX) - startX;
+                
+                const rotation = currentX * 0.1;
+                cardElement.style.transform = `translateX(${currentX}px) rotate(${rotation}deg)`;
+                cardElement.style.setProperty('--rotation', `${rotation}deg`);
+                
+                // Show indicators based on swipe direction
+                const likeIndicator = cardElement.querySelector('.like-indicator');
+                const passIndicator = cardElement.querySelector('.pass-indicator');
+                
+                if (currentX > 50) {
+                    likeIndicator.style.opacity = Math.min(1, (currentX - 50) / 100);
+                    passIndicator.style.opacity = 0;
+                } else if (currentX < -50) {
+                    passIndicator.style.opacity = Math.min(1, (-currentX - 50) / 100);
+                    likeIndicator.style.opacity = 0;
+                } else {
+                    likeIndicator.style.opacity = 0;
+                    passIndicator.style.opacity = 0;
+                }
+            }
+            
+            function handleEnd(e) {
+                if (!isDragging) return;
+                
+                isDragging = false;
+                cardElement.classList.remove('dragging');
+                
+                const threshold = 100;
+                
+                if (currentX > threshold) {
+                    // Like
+                    cardElement.style.transition = 'transform 0.3s ease';
+                    cardElement.style.transform = 'translateX(300px) rotate(15deg)';
+                    setTimeout(() => {
+                        currentIndex++;
+                        updateProfileCard();
+                        if (Math.random() < 0.3) showMatchDialog();
+                    }, 300);
+                } else if (currentX < -threshold) {
+                    // Pass
+                    cardElement.style.transition = 'transform 0.3s ease';
+                    cardElement.style.transform = 'translateX(-300px) rotate(-15deg)';
+                    setTimeout(() => {
+                        currentIndex++;
+                        updateProfileCard();
+                    }, 300);
+                } else {
+                    // Return to center
+                    cardElement.style.transition = 'transform 0.3s ease';
+                    cardElement.style.transform = 'translateX(0) rotate(0deg)';
+                    
+                    // Hide indicators
+                    setTimeout(() => {
+                        const indicators = cardElement.querySelectorAll('.swipe-indicator');
+                        indicators.forEach(indicator => indicator.style.opacity = 0);
+                    }, 300);
+                }
+                
+                currentX = 0;
+            }
+        });
+        
+        // Add CSS animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideUp {
+                from { transform: translateX(-50%) translateY(100%); }
+                to { transform: translateX(-50%) translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
